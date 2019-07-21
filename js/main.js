@@ -8,21 +8,6 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-
-  /**
-   * Add service worker
-   */
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/serviceWorker.js')
-      .then(() => {
-        console.log('Registered the service worker!');
-      })
-      .catch((err) => {
-        console.log('Failed to register the service worker!');
-        console.log(err);
-      });
-  }
-
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
@@ -40,7 +25,7 @@ fetchNeighborhoods = () => {
       fillNeighborhoodsHTML();
     }
   });
-};
+}
 
 /**
  * Set neighborhoods HTML.
@@ -53,7 +38,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     option.value = neighborhood;
     select.append(option);
   });
-};
+}
 
 /**
  * Fetch all cuisines and set their HTML.
@@ -67,7 +52,7 @@ fetchCuisines = () => {
       fillCuisinesHTML();
     }
   });
-};
+}
 
 /**
  * Set cuisines HTML.
@@ -81,7 +66,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     option.value = cuisine;
     select.append(option);
   });
-};
+}
 
 /**
  * Initialize leaflet map, called from HTML.
@@ -225,3 +210,13 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
+
+/**
+ * Add service worker
+ */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./js/serviceWorker.js')
+    .catch((err) => {
+      console.log(err);
+    });
+}
