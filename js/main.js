@@ -11,6 +11,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
+
+  /**
+   * Add service worker
+   */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/js/serviceWorker.js')
+      .then(() => {
+        console.log('Registered the service worker!');
+      })
+      .catch((err) => {
+        console.log('Failed to register the service worker!');
+        console.log(err);
+      });
+  }
 });
 
 /**
@@ -210,13 +224,3 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
-
-/**
- * Add service worker
- */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./js/serviceWorker.js')
-    .catch((err) => {
-      console.log(err);
-    });
-}
